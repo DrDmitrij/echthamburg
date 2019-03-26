@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Hallo!</h1>
+    <body style="background: #f2f2f2; margin: 0; font-family: NiveauGroteskRegular,Helvetica,Arial,sans-serif">
+        <nav class="header">
+            <div><img class="Firmen-Logo" title="Firmen Logo">
+            </div>
+        </nav>
+        <form action="{{ path('app_frontend_index') }}" method="post">
+            First name: <input type="text" name="fname"><br>
+            Last name: <input type="text" name="lname"><br>
+            <input type="submit" value="Submit">
+        </form>
+        {% if var == '0' %}
+            <div class="body">
+                <div class="get_user_data">
+                    <h2>Get User data</h2>
+                    <label>First name</label><br>
+                    <input type="text" style="margin-top: 5px;"><br>
+                    <label>Surname</label><br>
+                    <input type="text"><br>
+                    <button type="button">Get data</button><br>
+                </div>
+                <div class="set_user_data">
+                    <h2>Set User data</h2>
+                    <label>First name</label><br>
+                    <input type="text" style="margin-top: 5px;"><br>
+                    <label>Surname</label><br>
+                    <input type="text"><br>
+                    <button type="button">Set data</button><br>
+                </div>
+                <div class="remove_user_data">
+                    <h2>Remove User data</h2>
+                    <label>First name</label><br>
+                    <input type="text" style="margin-top: 5px;"><br>
+                    <label>Surname</label><br>
+                    <input type="text"><br>
+                    <button type="button">Remove data</button><br>
+                </div>
+            </div>
+        {% else %}
+
+        {% for foundusers in var %}
+                <li><a href="/show_user_{{ foundusers.user_id }}">{{ foundusers.last_name }}</a>  {{ foundusers.first_name }}</li>
+                <li>{{ foundusers.email }}</li>
+        {% endfor %}
+
+        {% endif %}
+        <nav class="footer">
+            <div>
+                <ul>
+                    <li>Impressum</li>
+                    <li>Datenschutz</li>
+                    <li>AGB</li>
+                </ul>
+                <p style="font-size: 12px;">Copyright © 2019 Security Squad GmbH</p>
+            </div>
+        </nav>
+        <style>
+            .header { height: 60px; padding: 5px; background-color: white; box-shadow: 0 3px 6px rgba(0,0,0,.1); }
+            .body { min-height: 60px; margin: 10px; padding: 5px; }
+            .body .login .login_input { padding: 20px; background-color: white; box-shadow: 0px 0px 5px 3px rgba(0,0,0,.1);}
+            .body .login .login_input input { margin: 10px 0px; }
+            .footer { min-height: 60px; padding: 5px; background-color: black; color: white; text-align: center; }
+            .footer ul { list-style: none; padding: 0px; }
+            .footer li { display: inline; margin: 0px 20px; }
+        </style>
+    </body>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <body style="background: #f2f2f2; margin: 0; font-family: NiveauGroteskRegular,Helvetica,Arial,sans-serif">
+        <nav class="header">
+            <div><img class="Firmen-Logo" title="Firmen Logo"></div>
+        </nav>
+        <div class="body">
+            {% if login == false %}
+                Leider kein Login möglich! Überprüfen Sie bitte Ihre Daten!
+            {% endif %}
+            <div class="login">
+                <h2>Login</h2>
+                <div class="login_input">
+                    <form action="" method="post">
+                        <label>Email</label><br>
+                        <input type="email"name="email" style="margin-top: 5px;"><br>
+                        <label>Passwort</label><br>
+                        <input type="password" name="password"><br>
+                        <button type="submit">Login</button><br>
+                        <p style="font-size: 12px">Password vergessen?</p>
+                    </form>
+                </div>
+            </div>
+            <p style="font-size: 12px; text-align: center;">Copyright © 2019 Security Squad GmbH</p>
+        </div>
+        <style>
+             .header { height: 60px; padding: 5px; background-color: white; box-shadow: 0 3px 6px rgba(0,0,0,.1); }
+             .body { min-height: 60px; margin: 10px; padding: 5px; }
+             .body .login { margin: 0 auto; max-width: 400px; }
+             .body .login .login_input { padding: 20px; background-color: white; box-shadow: 0px 0px 5px 3px rgba(0,0,0,.1); border-radius: 3px;}
+             .body .login .login_input input { width: 100%; margin: 10px 0px; padding: 5px; }
+         </style>
+    </body>
+{% endblock %}
