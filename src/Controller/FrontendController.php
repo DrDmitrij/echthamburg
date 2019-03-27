@@ -53,7 +53,7 @@ class FrontendController extends AbstractController
             $statement = $pdo->prepare($sql);
             $statement->execute();
 
-            $result = $statement->fetchAll();
+            $user = $statement->fetchAll();
         }
 
         if($_SESSION['userid']== 0)
@@ -61,7 +61,7 @@ class FrontendController extends AbstractController
         else
             $session = true;
 
-        return $this->render('Frontend/search.html.twig', ['var' => $result, 'session' => $session]);
+        return $this->render('Frontend/search.html.twig', ['var' => $user, 'session' => $session]);
     }
 
     /**
@@ -186,13 +186,8 @@ class FrontendController extends AbstractController
 
     public function checksession(){
         if(!isset($_SESSION))
-        {
             session_start();
-        }
-//        if (!PHP_SESSION_ACTIVE) {
-//            session_start();
-//            $_SESSION['userid'] = 0;
-//        }
+
         $request = Request::createFromGlobals();
         $route =$request->getPathInfo();
 
