@@ -1,70 +1,66 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Hallo!</h1>
     <body style="background: #f2f2f2; margin: 0; font-family: NiveauGroteskRegular,Helvetica,Arial,sans-serif">
-        <nav class="header">
-            <div><img class="Firmen-Logo" title="Firmen Logo">
-            </div>
-        </nav>
-        <form action="{{ path('app_frontend_index') }}" method="post">
-            First name: <input type="text" name="fname"><br>
-            Last name: <input type="text" name="lname"><br>
-            <input type="submit" value="Submit">
-        </form>
-        {% if var == '0' %}
-            <div class="body">
-                <div class="get_user_data">
-                    <h2>Get User data</h2>
-                    <label>First name</label><br>
-                    <input type="text" style="margin-top: 5px;"><br>
-                    <label>Surname</label><br>
-                    <input type="text"><br>
-                    <button type="button">Get data</button><br>
-                </div>
-                <div class="set_user_data">
-                    <h2>Set User data</h2>
-                    <label>First name</label><br>
-                    <input type="text" style="margin-top: 5px;"><br>
-                    <label>Surname</label><br>
-                    <input type="text"><br>
-                    <button type="button">Set data</button><br>
-                </div>
-                <div class="remove_user_data">
-                    <h2>Remove User data</h2>
-                    <label>First name</label><br>
-                    <input type="text" style="margin-top: 5px;"><br>
-                    <label>Surname</label><br>
-                    <input type="text"><br>
-                    <button type="button">Remove data</button><br>
-                </div>
-            </div>
-        {% else %}
-
-        {% for foundusers in var %}
-                <li><a href="/show_user_{{ foundusers.user_id }}">{{ foundusers.last_name }}</a>  {{ foundusers.first_name }}</li>
-                <li>{{ foundusers.email }}</li>
-        {% endfor %}
-
-        {% endif %}
-        <nav class="footer">
+        <div class="get_user_data">
+            <h3 style="margin: 0 0 15px 0;">Benutzer suchen</h3>
+            <form action="{{ path('app_frontend_index') }}" method="post">
             <div>
-                <ul>
-                    <li>Impressum</li>
-                    <li>Datenschutz</li>
-                    <li>AGB</li>
-                </ul>
-                <p style="font-size: 12px;">Copyright © 2019 Security Squad GmbH</p>
+                <label>Vorname</label><br>
+                <input type="text" name="fname" style="margin-top: 5px;">
             </div>
-        </nav>
+            <div>
+                <label>Nachname</label><br>
+                <input type="text" name="lname">
+            </div>
+            <div>
+                <label>E-Mail</label><br>
+                <input type="text" name="email">
+            </div>
+            <input type="submit" name="submit" value="Suchen"><br>
+            </form>
+        </div>
+
+        {% if var == '0' %}
+
+        {% else %}
+            {% if var is empty %}
+                <div class="body">
+                    <div class="message"><div class="failure" style="background-color: red; color: white; padding: 10px; margin: 10px 0px; border-radius: 3px;">
+                    <i class="fas fa-times" style="float: right;"></i>
+                    <h3 style="margin: 0px 0px 5px 0px;">Fehlermeldung</h3>
+                    <p style="margin: 0;">Leider wurde der Nutzer nicht gefunden.</p>
+                </div>
+            {% else %}
+                <div class="user_overview">
+                    <button style="margin: 0px 0px 10px 0px"><i class="fas fa-file-download"></i> Liste als CSV-Datei downloaden</button>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Vorname</th>
+                                <th>Nachname</th>
+                                <th>E-Mail</th>
+                                <th>Rolle</th>
+                                <th></th>
+                            </tr>
+                            {% for foundusers in var %}
+                                <tr>
+                                    <td>{{ foundusers.first_name }}</td>
+                                    <td>{{ foundusers.last_name }}</td>
+                                    <td>{{ foundusers.email }}</td>
+                                    <td>{{ foundusers.role_id }}</td>
+                                    <td><a href="/show_user_{{ foundusers.user_id }}"><button><i class="fas fa-user-edit"></i> Details</button></a>
+                                        <a href="/delete_{{ foundusers.user_id }}"><button><i class="fas fa-user-minus"></i> Benutzer löschen</button></a>
+                                    </td>
+                                </tr>
+                             {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+             {% endif %}
+        {% endif %}
         <style>
-            .header { height: 60px; padding: 5px; background-color: white; box-shadow: 0 3px 6px rgba(0,0,0,.1); }
-            .body { min-height: 60px; margin: 10px; padding: 5px; }
-            .body .login .login_input { padding: 20px; background-color: white; box-shadow: 0px 0px 5px 3px rgba(0,0,0,.1);}
-            .body .login .login_input input { margin: 10px 0px; }
-            .footer { min-height: 60px; padding: 5px; background-color: black; color: white; text-align: center; }
-            .footer ul { list-style: none; padding: 0px; }
-            .footer li { display: inline; margin: 0px 20px; }
+
         </style>
     </body>
 

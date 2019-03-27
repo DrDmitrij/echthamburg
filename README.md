@@ -1,2 +1,0 @@
-# echthamburg
-School Project

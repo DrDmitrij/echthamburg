@@ -2,12 +2,21 @@
 
 {% block body %}
     <body style="background: #f2f2f2; margin: 0; font-family: NiveauGroteskRegular,Helvetica,Arial,sans-serif">
-        <nav class="header">
-            <div><img class="Firmen-Logo" title="Firmen Logo"></div>
-        </nav>
         <div class="body">
             {% if login == false %}
-                Leider kein Login möglich! Überprüfen Sie bitte Ihre Daten!
+            <div class="message">
+                <div class="failure" style="background-color: red; color: white; padding: 10px; margin: 10px 0px; border-radius: 3px;">
+                    <i class="fas fa-times" style="float: right;"></i>
+                    <h3 style="margin: 0px 0px 5px 0px;">Fehlermeldung</h3>
+                    <p style="margin: 0;">Login fehlgeschlagen</p>
+                </div>
+            {% endif %}
+            {% if logout == true %}
+                <div class="success" style="background-color: green; color: white; padding: 10px; margin: 10px 0px; border-radius: 3px;">
+                    <i class="fas fa-times" style="float: right;"></i>
+                    <h3 style="margin: 0px 0px 5px 0px;">Logout erfolgreich</h3>
+                    <p style="margin: 0;">Sie haben sich erfolgreichabgemeldet.</p>
+                </div>
             {% endif %}
             <div class="login">
                 <h2>Login</h2>
